@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Attendance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="backdrop backdrop-a"></div>
+    <div class="backdrop backdrop-b"></div>
+
+    <main class="app-shell">
+      <section class="hero-panel">
+        <div>
+          <p class="eyebrow">Attendance record</p>
+          <h1>Log your day in one click.</h1>
+          <p class="lead">
+            Hardcoded sign-in, browser memory, 24-hour time, and Google Sheets as the database.
+          </p>
+        </div>
+
+        <div class="status-chip" id="authStatus">Signed out</div>
+      </section>
+
+      <section class="card login-card" id="loginScreen">
+        <div class="card-head">
+          <h2>Sign in</h2>
+          <p>Use the fixed username and password to unlock the attendance controls.</p>
+        </div>
+
+        <form id="loginForm" class="form-grid">
+          <label>
+            <span>Username</span>
+            <input id="username" name="username" type="text" autocomplete="username" required />
+          </label>
+
+          <label>
+            <span>Password</span>
+            <input id="password" name="password" type="password" autocomplete="current-password" required />
+          </label>
+
+          <button class="primary-button" type="submit">Sign in</button>
+        </form>
+
+        <p class="helper-text">This browser will stay signed in until you log out.</p>
+      </section>
+
+      <section class="dashboard hidden" id="dashboard">
+        <div class="card status-card">
+          <div class="status-row">
+            <div>
+              <p class="eyebrow">Today</p>
+              <h2 id="todayDate">--/--/----</h2>
+            </div>
+            <div class="digital-time" id="liveClock">--:--:--</div>
+          </div>
+
+          <p class="status-message" id="statusMessage">Waiting for your first action.</p>
+
+          <div class="action-grid">
+            <button class="action-button action-in" id="checkinButton" type="button">Check In</button>
+            <button class="action-button action-out" id="checkoutButton" type="button">Check Out</button>
+          </div>
+
+          <div class="secondary-row">
+            <button class="ghost-button" id="logoutButton" type="button">Log out</button>
+            <div class="browser-note">Remembered on this browser</div>
+          </div>
+        </div>
+
+        <div class="summary-grid">
+          <article class="card summary-card">
+            <span>Check in</span>
+            <strong id="checkinValue">--</strong>
+          </article>
+
+          <article class="card summary-card">
+            <span>Check out</span>
+            <strong id="checkoutValue">--</strong>
+          </article>
+
+          <article class="card summary-card">
+            <span>Hours worked</span>
+            <strong id="hoursValue">--</strong>
+          </article>
+        </div>
+      </section>
+
+      <aside class="toast hidden" id="messageBox" aria-live="polite"></aside>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
