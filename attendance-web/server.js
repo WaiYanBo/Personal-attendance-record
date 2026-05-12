@@ -3,8 +3,20 @@ const path = require('path');
 const express = require('express');
 const { google } = require('googleapis');
 require('dotenv').config();
-
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
 const app = express();
+// Basic security headers
+app.use(helmet());
+
+// Limit each IP to 20 login requests per 15 minutes
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, 
+  max: 20, 
+  message: { message: 'Too many login attempts. Try again later.' }
+});
+
+app.use('/api/login', loginLimiter);
 const PORT = process.env.PORT || 3000;
 const AUTH_SECRET = process.env.AUTH_SECRET || 'attendance-web-secret';
 const TIME_ZONE = process.env.TIME_ZONE || Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
