@@ -9,10 +9,18 @@ const app = express();
 
 // Tell Express it is behind a reverse proxy (Render/Railway)
 app.set('trust proxy', 1);
-// Basic security headers
-app.use(helmet());
-// Basic security headers
-app.use(helmet());
+// Basic security headers, configured to allow Google Fonts
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com"],
+        styleSrc: ["'self'", "https://fonts.googleapis.com", "'unsafe-inline'"],
+      },
+    },
+  })
+);
 
 // Limit each IP to 20 login requests per 15 minutes
 const loginLimiter = rateLimit({
