@@ -6,6 +6,11 @@ require('dotenv').config();
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const app = express();
+
+// Tell Express it is behind a reverse proxy (Render/Railway)
+app.set('trust proxy', 1);
+// Basic security headers
+app.use(helmet());
 // Basic security headers
 app.use(helmet());
 
